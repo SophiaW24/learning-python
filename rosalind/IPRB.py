@@ -3,17 +3,14 @@
 k = 2
 m = 2
 n = 2
-
-
-def calcprob(k, m, n):
-    population = k + m + n
-
-    k_strand = (k / population) * (((k-1) / (population-1)) + (m / (population - 1)) + (n / (population - 1)))
-    m_strand = (m / population) * (((3*(m-1)) / (4*(population-1))) + (k / (population - 1)) + (n / (2*(population - 1))))
-    n_strand = (n / population) * ((k / (population - 1)) + (m / (2*(population - 1))))
-
-    PA = round(k_strand + m_strand + n_strand, 5)
-    return PA
-
-calcprob(2,2,2)
+​
+population = k + m + n
+​
+k_strand = ((k/population) * ((k-1)/(population-1)) * 1) + ((k/population) * (m/(population-1)) * 1) + ((k/population) * (n/(population-1)) *1)
+m_strand = ((m/population) * (k/(population-1)) * 1) + ((m/population) * ((m-1)/(population-1)) * 0.75) + ((m/population) * (n/(population-1)) * 0.5)
+n_strand = ((n/population) * (k/(population-1)) * 1) + ((n/population) * (m/(population-1)) * 0.5) + ((n/population) * ((n-1)/(population-1)) * 0)
+​
+probability = round(k_strand + m_strand + n_strand, 5)
+​
+print(probability)
 0.78333
