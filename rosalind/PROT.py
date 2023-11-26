@@ -1,5 +1,5 @@
 #Translating RNA into Protein
-#still working the solution, couldn´t figure it out yet
+#attempt 1: Didn´t work
 
 RNA_string = 'AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA'
 protein_string = ''
@@ -25,3 +25,42 @@ for i in range(len(RNA_string)%3):
         protein_string += RNA_codon_table.values
 
 print(protein_string)
+
+
+#attempt 2: Works! :)
+
+RNA_string = 'AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA'
+protein_string = ''
+RNA_codon_table = {"CUU":"L", "CUC":"L", "CUA":"L", "CUG":"L", "UUA":"L", "UUG":"L", 
+            "CGU":"R", "CGC":"R", "CGA":"R", "CGG":"R", "AGA":"R", "AGG":"R", 
+            "GCC":"A", "GCU":"A", "GCA":"A", "GCG":"A", 
+            "ACU":"T", "ACC":"T", "ACA":"T", "ACG":"T", 
+            "UCU":"S", "UCC":"S", "UCA":"S", "UCG":"S", 
+            "GUU":"V", "GUC":"V", "GUA":"V", "GUG":"V", 
+            "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G", 
+            "CCU":"P", "CCC":"P", "CCA":"P", "CCG":"P", 
+            "AUU":"I", "AUC":"I", "AUA":"I", 
+            "UUU":"F", "UUC":"F", 
+            "GAU":"D", "GAC":"D", 
+            "GAA":"E", "GAG":"E", 
+            "AGU":"S", "AGC":"S", 
+            "AAA":"K", "AAG":"K", 
+            "AAU":"N", "AAC":"N", 
+            "CAU":"H", "CAC":"H", 
+            "UAU":"Y", "UAC":"Y", 
+            "UGU":"C", "UGC":"C", 
+            "CAA":"Q", "CAG":"Q", 
+            "UGG":"W", 
+            "AUG":"M", 
+            "UAA":"Stop", "UAG":"Stop", "UGA":"Stop"}
+​
+​
+for i in range(len(RNA_string)//3):
+    #connect 3 block steps to triplets as letters
+    codon = RNA_string[i*3:i*3+3]
+    #append translating letters to triplets in string
+    protein_string += RNA_codon_table[codon]
+​
+protein_string = protein_string.replace('Stop', '')
+print(protein_string)
+MAMAPRTEINSTRING

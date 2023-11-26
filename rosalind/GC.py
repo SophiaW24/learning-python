@@ -3,7 +3,7 @@
 dna_string = 'CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT'
 
 #calculate GC-content
-total =len(dna_string)
+total = len(dna_string)
 G = dna_string.count('G')
 C = dna_string.count('C')
 
