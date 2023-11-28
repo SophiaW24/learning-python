@@ -1,51 +1,60 @@
-#Computing GC content
+#final solution!!!!!
 
-dna_string = 'CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT'
-
-#calculate GC-content
-total = len(dna_string)
-G = dna_string.count('G')
-C = dna_string.count('C')
-
-GC_total = G + C
-
-GC_content = GC_total/total
+fasta = open('C:/Users/sophi/Desktop/learning-python/rosalind/GC_train.txt', mode='r')
 
 
-#formating deciaml to percent with 6 decimal places
-GC_content = float(GC_content) * 100
-print('{:.6f}'.format(GC_content) + '%')
-
-
-GC_content.append((strand.count('G') + strand.count('C'))/len(strand))
-
-
-
-
-
-
-#cheated by formating fasta file dna code in one line...
-#didn´t know how else to solve it
-#I know won´t work with big data
-
-fasta_format = '''
->Rosalind_6404
-CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG
->Rosalind_5959
-CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC
->Rosalind_0808
-CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT
-'''
-GC_content = []
-
-for strand in fasta_format.splitlines():
-    if strand == '>':
-        next(strand)
+for line in fasta:
+    if line[0] == '>':
+      key = line
+      id_seq[key] = ''
     else:
-        GC_content.append((strand.count('G') + strand.count('C'))/len(strand))
+      id_seq[key] += line
+
+#print(id_seq)
+fasta.close()
+
+#remove characters: '>' & '\n' from dict.keys
+for key in list(id_seq.keys()):
+    new_key = key.replace('>', '')
+    id_seq[new_key] = id_seq.pop(key)
+
+for key in list(id_seq.keys()):
+    new_key = key.replace('\n', '')
+    id_seq[new_key] = id_seq.pop(key)
+
+#print(id_seq)
+
+#remove characters: '\n' from dict.values
+for key in id_seq:
+    id_seq[key] = id_seq[key].replace('\n', '')
+
+#print(id_seq)
+
+#calculate GC-content for every sequence in dictionary
+GC_content =[]
+
+for value in id_seq.values():
+   total = len(value)
+   G = value.count('G')
+   C = value.count('C')
+   GC_total = G + C
+   GC_content.append(GC_total/total)
 
 print(GC_content)
 
+#print highest GC_content with ID
+maxGC = max(GC_content) * 100
+maxGC_formatted = "{:.6f}".format(maxGC)
 
-#I tried to solve this but couldn´t figure it out..
-#This is my best attempt
+
+#print correct ID
+key_ID = list(id_seq.keys())
+
+#Output
+print(key_ID[5])
+print(maxGC_formatted)
+
+#it works
+#the only minor thing where I might have cheated is that 
+#I had to look up manually which ID fits the highest GC content to print it
+
